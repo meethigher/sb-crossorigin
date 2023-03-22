@@ -68,7 +68,7 @@ public FilterRegistrationBean second() {
 }
 ```
 
-# 其他方式
+# 第三种全局
 
 ```java
 @Component
