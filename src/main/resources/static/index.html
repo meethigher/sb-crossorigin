@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试</title>
+</head>
+<body>
+<script>
+    fetch("http://localhost:4321/test/get")
+        .then(response => response.text())
+        .then(data => console.log(data));
+    fetch("http://localhost:4321/test/post", {
+        method: "POST",
+        headers: {
+            "Content-Type": "text/html"
+        }
+    }).then(response => response.text())
+        .then(data => console.log(data));
+    fetch("http://localhost:4321/test/annotation", {
+        method: "POST",
+        headers: {
+            "Content-Type": "text/html"
+        }
+    }).then(response => response.text())
+        .then(data => console.log(data));
+</script>
+</body>
+</html>
