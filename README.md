@@ -68,3 +68,23 @@ public FilterRegistrationBean second() {
 }
 ```
 
+# 其他方式
+
+```java
+@Component
+public class SystemWebMvcConfigurer extends WebMvcConfigurationSupport {
+    /**
+     * 跨域配置
+     */
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry
+                .addMapping("/**")
+                .allowCredentials(true)
+                .allowedOriginPatterns("*")
+                .allowedHeaders("*")
+                .allowedMethods("*");
+    }
+}
+```
+
