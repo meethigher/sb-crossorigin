@@ -7,6 +7,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -50,7 +51,13 @@ public class CrossOriginConfig {
         //注入过滤器
         registrationBean.setFilter((servletRequest, servletResponse, filterChain) -> {
             HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
-            httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
+            HttpServletRequest httpServletRequest=(HttpServletRequest) servletRequest;
+
+            //OPTIONS请求用于跨域时，浏览器用于预检内容，一般响应OPTIONS请求正常即可。反正还是要具体情况具体实现
+
+//            httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
+            //有时候直接用*会导致范围过大，浏览器出于安全考虑，有时候会不认*这个操作，因此可以使用如下代码，间接实现允许跨域
+            httpServletResponse.setHeader("Access-Control-Allow-Origin", httpServletRequest.getHeader("origin"));
             //响应头设置
             httpServletResponse.setHeader("Access-Control-Allow-Headers", "*");
             //响应类型
