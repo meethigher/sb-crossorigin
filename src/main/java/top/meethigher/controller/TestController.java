@@ -1,6 +1,7 @@
 package top.meethigher.controller;
 
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 模拟接口
@@ -26,6 +27,11 @@ public class TestController {
     @CrossOrigin
     public String annotation() {
         return "注解实现跨域";
+    }
+
+    @PostMapping("/upload")
+    public String upload(@RequestPart("file") MultipartFile file) {
+        return file.getOriginalFilename();
     }
 
 }
