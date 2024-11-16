@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 模拟接口
@@ -37,6 +38,16 @@ public class TestController {
     @PostMapping("/upload")
     public String upload(@RequestPart("file") MultipartFile file) {
         return file.getOriginalFilename();
+    }
+
+    @GetMapping("/wait")
+    public String wait(@RequestParam(value = "page", required = false) String test) {
+        try {
+            TimeUnit.SECONDS.sleep(10);
+        }catch (Exception ignore) {
+            ignore.printStackTrace();
+        }
+        return test;
     }
 
     @GetMapping("/headers")
