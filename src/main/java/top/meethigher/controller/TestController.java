@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Enumeration;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -44,7 +45,7 @@ public class TestController {
     public String wait(@RequestParam(value = "page", required = false) String test) {
         try {
             TimeUnit.SECONDS.sleep(10);
-        }catch (Exception ignore) {
+        } catch (Exception ignore) {
             ignore.printStackTrace();
         }
         return test;
@@ -60,6 +61,11 @@ public class TestController {
             map.put(key, value);
         }
         return map;
+    }
+
+    @GetMapping("/location")
+    public void location(HttpServletResponse response) throws Exception {
+        response.sendRedirect("http://10.0.0.1:4321/test/get");
     }
 
 }
