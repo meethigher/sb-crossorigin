@@ -51,9 +51,7 @@ public class CrossOriginConfig {
         //注入过滤器
         registrationBean.setFilter((servletRequest, servletResponse, filterChain) -> {
             HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
-            HttpServletRequest httpServletRequest=(HttpServletRequest) servletRequest;
-
-            //OPTIONS请求用于跨域时，浏览器用于预检内容，一般响应OPTIONS请求正常即可。反正还是要具体情况具体实现
+            HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
 
 //            httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
             //有时候直接用*会导致范围过大，浏览器出于安全考虑，有时候会不认*这个操作，因此可以使用如下代码，间接实现允许跨域
@@ -64,6 +62,11 @@ public class CrossOriginConfig {
             httpServletResponse.setHeader("Access-Control-Allow-Methods", "*");
             //允许跨越发送cookie
             httpServletResponse.setHeader("Access-Control-Allow-Credentials", "true");
+            //OPTIONS请求用于跨域时，浏览器用于预检内容，一般响应OPTIONS请求正常即可。反正还是要具体情况具体实现
+            if ("OPTIONS".equals(httpServletRequest.getMethod())) {
+                httpServletResponse.setStatus(200);
+                return;
+            }
             filterChain.doFilter(servletRequest, servletResponse);
         });
         //过滤器名称
